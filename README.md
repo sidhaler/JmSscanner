@@ -1,17 +1,26 @@
 
 
 
-
-Ogólnie to JmSim60'
-jebac maksymka smietniczka
+                           NASZA piękna aplikacja, będzie służyła jako skaner sieciowy
 
 
 
 
-                                       Biblioteka będzie napisana w języku RUST 
+                            Silnik będzie napisany w języku RUST 
 
                                        Linux ver. będzie napisana w Javie
 
                                        Windows ver. + gui będzie napisane w C#
                                        
                                        JmS suqad
+
+
+
+
+
+
+
+
+
+Ogólnie to JmSim60'
+jebac maksymka smietniczka
