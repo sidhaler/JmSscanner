@@ -34,7 +34,7 @@ pub async fn jmsREQ(x: String) -> Result<()> {
     //println!("Status: {}", res.status());
     let sta = res.status();
     if  {sta == 200 || sta == 302 }{
-        println!("ip: {} -> PORT 80 otwarty", x);
+        println!("WEBSITE RUNNING ON THIS SERVER: {} -> ", x);
 
     } else {
         println!(" \n ");
