@@ -12,4 +12,6 @@ jebac maksymka smietniczka
 
                                        Linux ver. będzie napisana w Javie
 
-                                       Windows ver. + gui będzie napisane w C# 
+                                       Windows ver. + gui będzie napisane w C#
+                                       
+                                       JmS suqad
