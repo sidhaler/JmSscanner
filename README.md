@@ -8,8 +8,8 @@ jebac maksymka smietniczka
 
 
 
-                                              Biblioteka będzie napisana w języku RUST 
+                                       Biblioteka będzie napisana w języku RUST 
 
-                                              Linux ver. będzie napisana w Javie
+                                       Linux ver. będzie napisana w Javie
 
-                                              Windows ver. + gui będzie napisane w C# 
+                                       Windows ver. + gui będzie napisane w C# 
