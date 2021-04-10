@@ -1,8 +1,6 @@
-extern crate tokio;
 extern crate hyper;
 extern crate futures;
 
-use tokio::*;
 use std::sync::{Arc, Mutex};
 
 fn jms(host: String, port: u16  ) -> bool{
