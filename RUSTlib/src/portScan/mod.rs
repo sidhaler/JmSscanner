@@ -1,7 +1,14 @@
+extern crate tokio;
 extern crate hyper;
 extern crate futures;
 
+
+
+use std::env;
+use std::process;
+use tokio::*;
 use std::sync::{Arc, Mutex};
+use std::thread;
 
 fn jms(host: String, port: u16  ) -> bool{
     thread::sleep_ms(500);
@@ -9,19 +16,20 @@ fn jms(host: String, port: u16  ) -> bool{
 }
 
 
-// NIESKONCZONE
-
-pub fn scanner(arg: String){
-    let mut args: Vec<String> = Vec::new();
-
-    args.push(arg.into_string().unwrap());
 
 
+pub fn scanner(arg: String, mask: i32){
+    /*    let mut args: Vec<String> = Vec::new();
+        for arg in env::args_os() {
+            args.push(arg.into_string().unwrap());
+        }*/
 
-    let ct_args = args.len();
 
-    if ct_args == 1 {
-        println!("Port scanner\
+
+    let ct_args: i32 = arg.len();
+
+    if ct_args > 1 {
+        println!("Port scanner \n
         https://github.com/sidhaler/jmsSCANNER ");
         process::exit(1);
     }
@@ -46,6 +54,7 @@ pub fn scanner(arg: String){
         let port_clone = shared_ports.clone();
 
         let handle = thread::spawn(move || {
+            //    println!("Spawned thread nr {}", i);
             loop {
                 let mut port;
                 {
@@ -54,11 +63,13 @@ pub fn scanner(arg: String){
                 }
                 match port {
                     Some(port) => {
+                        println!("{}", port);
                         if jms(host.clone(), port){
                             println!("Port {} OPEN", port)
                         }
                     },
                     None =>{
+                        println!("Thread {} Closing", i);
                         break;
                     }
                 }

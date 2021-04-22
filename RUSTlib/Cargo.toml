@@ -1,10 +1,11 @@
 [package]
 name = "jmsrequest"
 version = "0.1.0"
-authors = ["sidhaler"]
+authors = ["sidhaler <seadhaler@gmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 
 [dependencies]
 hyper = "0.14.5"
@@ -13,3 +14,5 @@ tokio-core = "0.1.18"
 error-chain = "0.12.4"
 reqwest = { version = "0.11", features = ["blocking", "json"] }
 tokio = { version = "1", features = ["full"] }
+regex = "1"
+
