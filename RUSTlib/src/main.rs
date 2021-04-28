@@ -17,17 +17,16 @@ pub enum PortStats {
 
 
 #[tokio::main]
-fn main() -> std::io::Result<()>  {
+async fn main() -> std::io::Result<()>  {
 
 
 let net: String = "192.168.1.1".to_string();
 for e in 1..1000{
-    let mut addr = String::new();
+///    let mut addr = String::new();
 
+///    addr = format!("{}:{}", net, e);
 
-    addr = format!("{}:{}", net, e);
-
-    ///   let mut add = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,1)), e);
+    let mut add = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,1)), e);
 
         thread::spawn(move ||{
         ///    println!("Thread: nr. => {}", e);
@@ -36,7 +35,6 @@ for e in 1..1000{
             }
 
 
-           /// let dur = Duration::from_millis(100);
 
             thread::sleep(Duration::from_millis(100));
         });
