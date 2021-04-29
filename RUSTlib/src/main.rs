@@ -14,13 +14,13 @@ use std::result::Result::Ok;
 #[tokio::main]
 async fn main() -> std::io::Result<()>  {
 
-println!("WELCOME IN JmSscanner => ")
+println!("WELCOME IN JmSscanner => https://github.com/sidhaler/jmsSCANNER ");
 
 
 let mut dur = Duration::from_millis(10);
 
-    /// scanning for max range 5000
-for i in 1..5000{
+/// scanning for max range 1000
+for i in 1..1000{
 ///    let mut addr = String::new();
 
 ///    addr = format!("{}:{}", net, e);
@@ -28,7 +28,7 @@ for i in 1..5000{
 
 let mut portsat: i32 = 0;
     /// actual adress
-    let mut add: SocketAddr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,1)), i);
+    let mut add: SocketAddr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,6)), i);
 
        let t = thread::spawn(move ||{
         ///    println!("Thread: nr. => {}", e);
@@ -43,10 +43,7 @@ let mut portsat: i32 = 0;
                     ErrorKind::TimedOut => portsat = 4,
                     ErrorKind::ConnectionRefused  => portsat = 1,
                     ErrorKind::ConnectionReset => portsat = 2,
-                    _ => match e.kind(){
-                          ErrorKind::AddrNotAvailable => println!("No route to host"),
-                        _ => portsat = 3
-                    },
+                    _ => println!("No route to host")
                 },
             };
 
