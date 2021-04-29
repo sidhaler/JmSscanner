@@ -28,7 +28,8 @@ for i in 1..1000{
 
 let mut portsat: i32 = 0;
     /// actual adress
-    let mut add: SocketAddr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,6)), i);
+    /// scanning only router in network 192.168.1.0/24
+    let mut add: SocketAddr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,1)), i);
 
        let t = thread::spawn(move ||{
         ///    println!("Thread: nr. => {}", e);
