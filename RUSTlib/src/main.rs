@@ -5,40 +5,56 @@ use std::io::{ErrorKind, Result};
 use std::net::{SocketAddr, TcpStream, IpAddr, Ipv4Addr};
 use std::time::Duration;
 use std::thread::Thread;
+use std::result::Result::Ok;
 
 
-#[derive(Debug, Clone, Copy, PartialEq)]
-pub enum PortStats {
-    Open,
-    Closed,
-    Filtered,
-    BadHost,
-}
+/// HALO MANY ALE PRZKESZONE
 
 
 #[tokio::main]
 async fn main() -> std::io::Result<()>  {
 
+println!("WELCOME IN JmSscanner => ")
 
-let net: String = "192.168.1.1".to_string();
-for e in 1..1000{
+
+let mut dur = Duration::from_millis(10);
+
+    /// scanning for max range 5000
+for i in 1..5000{
 ///    let mut addr = String::new();
 
 ///    addr = format!("{}:{}", net, e);
 
-    let mut add = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,1)), e);
 
-        thread::spawn(move ||{
+let mut portsat: i32 = 0;
+    /// actual adress
+    let mut add: SocketAddr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,1)), i);
+
+       let t = thread::spawn(move ||{
         ///    println!("Thread: nr. => {}", e);
-            if let Ok(stream) = TcpStream::connect(add) {
-                println!("PORT {} OPEN", e);
-            }
+        ///
+        /// scanning ports
 
 
+            match TcpStream::connect_timeout(&add, dur){
+                Ok(stream) =>  println!("OPEN || PORT => {}/TCP ||\n", i),
+                Err(e) => match e.kind() {
+                   // ErrorKind::TimedOut => println!("FILTERED/CLOSED || PORT => {}/TCP ||\n", i),
+                    ErrorKind::TimedOut => portsat = 4,
+                    ErrorKind::ConnectionRefused  => portsat = 1,
+                    ErrorKind::ConnectionReset => portsat = 2,
+                    _ => match e.kind(){
+                          ErrorKind::AddrNotAvailable => println!("No route to host"),
+                        _ => portsat = 3
+                    },
+                },
+            };
 
-            thread::sleep(Duration::from_millis(100));
-        });
+
+            thread::sleep(Duration::from_millis(10));
+}
+        );
+    t.join();
 }
     Ok(())
 }
-
