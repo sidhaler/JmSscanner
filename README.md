@@ -1,2 +1,8 @@
 
-JmS
+
+
+
+
+
+USAGE :
+`` ./jmsrequest *ur target* `` 
