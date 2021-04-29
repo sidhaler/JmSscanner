@@ -11,4 +11,4 @@ LINUX (Ubuntu) USAGE :
 
 Windows(its retarded don't ever use this version) USAGE : 
 
-`` jmsrequest *ur target* ``
+`` jmsrequest.exe *ur target* ``
