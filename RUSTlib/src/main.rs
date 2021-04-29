@@ -1,4 +1,4 @@
-use std::thread;
+use std::{thread, env};
 use libc;
 use std::fmt;
 use std::io::{ErrorKind, Result};
@@ -13,23 +13,40 @@ use std::result::Result::Ok;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()>  {
+let args: Vec<String> = env::args().collect();
 
-println!("WELCOME IN JmSscanner => https://github.com/sidhaler/jmsSCANNER ");
+let wrr = &args[1];
+let mut actddr = wrr.to_string();
+
+
+
+println!("Welcome in JmSscanner, source => https://github.com/sidhaler/jmsSCANNER \n\n\r\r");
+
+println!("SCANNING => {} \n\n\r\r", actddr);
+
+
 
 
 let mut dur = Duration::from_millis(10);
 
-/// scanning for max range 1000
+let mut c: i32 =  0;
+
+
+let target: Ipv4Addr = actddr.parse().expect("Argument Error");
+
+
+
+
+    /// scanning for max range 5000
 for i in 1..1000{
 ///    let mut addr = String::new();
 
 ///    addr = format!("{}:{}", net, e);
 
-
 let mut portsat: i32 = 0;
+
     /// actual adress
-    /// scanning only router in network 192.168.1.0/24
-    let mut add: SocketAddr = SocketAddr::new(IpAddr::V4(Ipv4Addr::new(192,168,1,1)), i);
+    let mut add: SocketAddr = SocketAddr::new(IpAddr::V4(target), i);
 
        let t = thread::spawn(move ||{
         ///    println!("Thread: nr. => {}", e);
@@ -38,21 +55,30 @@ let mut portsat: i32 = 0;
 
 
             match TcpStream::connect_timeout(&add, dur){
-                Ok(stream) =>  println!("OPEN || PORT => {}/TCP ||\n", i),
+                Ok(stream) =>  println!("OPEN || PORT => {}/TCP || \n\r", i),
                 Err(e) => match e.kind() {
-                   // ErrorKind::TimedOut => println!("FILTERED/CLOSED || PORT => {}/TCP ||\n", i),
-                    ErrorKind::TimedOut => portsat = 4,
+                 // ErrorKind::TimedOut => println!("FILTERED/CLOSED || PORT => {}/TCP ||\n", i),
+                    ErrorKind::TimedOut => portsat = 3,
                     ErrorKind::ConnectionRefused  => portsat = 1,
                     ErrorKind::ConnectionReset => portsat = 2,
-                    _ => println!("No route to host")
+                    _ => portsat = 4
                 },
             };
+
+           match portsat {
+               1 => println!("CLOSED || PORT => {}/TCP || \n\r", i),
+               2 => println!("FILTERED || PORT => {}/TCP || \n\r", i),
+               3 => portsat = 0,
+               4 => panic!("NO ROUTE TO HOST"),
+               _ => portsat = 0
+           };
+
 
 
             thread::sleep(Duration::from_millis(10));
 }
         );
-    t.join();
+    t.join().unwrap().clone();
 }
     Ok(())
 }
