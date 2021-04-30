@@ -4,11 +4,11 @@
 
 
 
-LINUX (Ubuntu) USAGE : 
+# LINUX (Ubuntu) USAGE : 
 
-`` ./jmsrequest *ur target* `` 
+`` ./jmsrequest *ur target* *max_port_range*`` 
 
 
-Windows(its retarded don't ever use this version) USAGE : 
+# Windows(its retarded don't ever use this version) USAGE : 
 
-`` jmsrequest.exe *ur target* ``
+`` jmsrequest.exe *ur_target*  ``
