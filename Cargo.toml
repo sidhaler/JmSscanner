@@ -1,12 +1,18 @@
 [package]
 name = "jmsrequest"
 version = "0.1.0"
-authors = ["sidhaler"]
+authors = ["sidhaler <seadhaler@gmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "jmsrequest"
+path = "src/main.rs"
 
+[lib]
+name = "many"
+path = "src/lib.rs"
 
 [dependencies]
-tokio-core = "0.1.18"
+icmp = "0.3.0"
 tokio = { version = "1", features = ["full"] }
