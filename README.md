@@ -19,6 +19,8 @@ EXAMPLES:
 # Windows(its retarded don't ever use this version) :
 ****
 
-The windows version is too bugged for normal use. I will try to rewrite whole project into c# but in long future.
+The windows version is too bugged for normal use. I will try to rewrite whole project for better windows performence but in long future.
+
+USAGE( in cmd type ):
 
 `` jmsrequest.exe *ur_target* *max_port_range* ``
