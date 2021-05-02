@@ -1,6 +1,6 @@
 [package]
 name = "jmsrequest"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["sidhaler <seadhaler@gmail.com>"]
 edition = "2018"
 
@@ -8,11 +8,12 @@ edition = "2018"
 [[bin]]
 name = "jmsrequest"
 path = "src/main.rs"
-
 [lib]
 name = "many"
 path = "src/lib.rs"
-
+# for building windows .exe
+[toolchain.optional]
+rust-std = ["x86_64-pc-windows-gnu"]
 [dependencies]
-icmp = "0.3.0"
 tokio = { version = "1", features = ["full"] }
+structopt = "0.3.13"
