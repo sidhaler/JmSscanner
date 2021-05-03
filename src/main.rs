@@ -1,15 +1,25 @@
 use std::thread;
 use std::net::{SocketAddr, IpAddr, Ipv4Addr};
 use std::time::{Duration, Instant};
-use many::tcp::{PortStat, tcp_scan};
 use std::result::Result::Ok;
 use structopt::StructOpt;
-
+use many::tcp::{PortStat, tcp_scan};
+use many::services::{match_service};
 #[derive(Debug, StructOpt)]
 #[structopt()]
+///
+///
+///
 /// SCAN FOR OPEN PORTS ON TARGET
 /// Only ipv4, and local network
+///
+///
 /// Don't use it on localhost because it's kinda bugged.
+///
+///
+/// Max value of port range is 65534
+///
+///
 ///
 /// EXAMPLE:
 /// jmsrequest 192.168.1.1 -p 1000                  it will check 1000 ports on host
@@ -21,7 +31,7 @@ struct Opt {
 
 
 
-    /// port range to scan
+    /// port range to scan, max value 65534
     #[structopt(short = "p", long = "port", default_value = "1000")]
     port_range: String
 }
@@ -46,7 +56,7 @@ async fn main() -> std::io::Result<()>  {
         "SCANNING => {} || On TCP protocol || With range of {} ports \n\n\r\r"
         , actddr, &portrange);
     println!(
-        "Resolving meaning of results↓\n\r*STATE* || *PORT NUMBER*/PROTOCOl \n\n\n\r\r\r");
+        "Resolving meaning of results↓\n\r*STATE* || *PORT NUMBER*/PROTOCOl || *SERVICE*\n\n\n\r\r\r");
     // timeout duration
     let timeout_dur = Duration::from_millis(1);
 
@@ -57,7 +67,7 @@ async fn main() -> std::io::Result<()>  {
 
     // getting scan start time
     let start = Instant::now();
-    println!("SCAN  ↓\n\r");
+    println!("SCAN RESULTS  ↓\n\r");
     // startring scan
     for i in 1..maxport+1{
         // actual addr, and port
@@ -66,15 +76,14 @@ async fn main() -> std::io::Result<()>  {
             loop {
                 // MATCHING RESULTS FROM STREAM
                 match tcp_scan(*&add, timeout_dur) {
-                    PortStat::Closed => println!("CLOSED  ||  {}/TCP  \n\r", i),
+                    PortStat::Closed => println!("CLOSED  ||  {}/TCP  ||   {}\n\r", i, match_service(i)),
                     PortStat::Filtered => c = 1
                     //println!("FILTERED || PORT => {}/TCP || \n\r", i)
                     ,
-                    PortStat::Open => println!("OPEN    ||  {}/TCP  \n\r", i),
+                    PortStat::Open => println!("OPEN    ||  {}/TCP  ||   {} \r\n", i, match_service(i)),
                     PortStat::NoHost => panic!("Host Unreachable"),
                     _ => println!("No route to host")
                 };
-
                 return
             }
         }
@@ -83,6 +92,6 @@ async fn main() -> std::io::Result<()>  {
     };
     // printing diffrence between start of scan and end of scan in secs
     println!("JmSscan done: in {} seconds scanned {} ports", start.elapsed().as_secs(), &maxport);
-    // after that program is ending
+    // after that program ends
     Ok(())
 }
