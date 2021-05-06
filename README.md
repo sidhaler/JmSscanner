@@ -6,6 +6,8 @@ JmSscanner is simple port scanner.
 ```
 -h || prints help
 -p || port range from x to y, example: -p 44-443
+-n || network scan, example: 192.168.1.0/24 -n  
+-w || scanning for websites on host, example: 192.168.1.1 -p 20-2000 -w 
 ```
 note: _max range of ports is 65535_
 # LINUX (Ubuntu) :
@@ -26,7 +28,7 @@ Examples:
 # Windows(its retarded don't ever use this version) :
 ****
 note:
-_windows version is too bugged for normal use. I will try to rewrite whole project for better windows performance but in long future._
+_windows version is too bugged for normal use. I will try to rewrite project for better windows performance but in long future._
 
 
 Experimental usage:
