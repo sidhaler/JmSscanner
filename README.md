@@ -44,14 +44,14 @@ cargo run *target required* [options is otpional^^]
 ````
 # Building :
 ****
-####For normal build go into src directory, then use ↓
+#### For normal build go into src directory, then use ↓
 ```` 
 cargo build
 ````
 After that u will have release version ready in jmsrequest/target/debug
 ****
 
-####For building release version ↓
+#### For building release version ↓
 ```` 
 cargo build --release 
 ````
@@ -59,7 +59,7 @@ After that u will have release version ready in jmsrequest/target/release
 ****
 
 
-####For building .exe, on linux ↓
+#### For building .exe, on linux ↓
 ````
 cargo build --release --target x86_64-pc-windows-gnu
 ````
