@@ -9,6 +9,8 @@ use futures::executor::block_on;
 use many::tcp::{PortStat, tcp_scan};
 use many::services::match_service;
 use many::website_script::{website_script_check, WebServer };
+use std::thread::Thread;
+
 #[derive(Debug, StructOpt)]
 #[structopt()]
 ///
@@ -31,7 +33,7 @@ use many::website_script::{website_script_check, WebServer };
 ///
 ///
 /// jmsscanner 192.168.1.1 -p 1-1000                  it will check 1000 ports on host
-///
+/// jmsscanner 192.168.1.1 -p 1-65535 -w              it will check for max port range, and look for websites up
 ///
 struct Opt {
     // target to scan
@@ -106,14 +108,16 @@ async fn main() -> std::io::Result<()>  {
     let timeout_dur = Duration::from_millis(1);
     // parsing arguments for use in loop
     let target: Ipv4Addr = actddr.parse().expect("Argument Error");
+    // performence
+    let mut thread_pool = vec![];
     // getting scan start time
     let start = Instant::now();
     println!("SCAN RESULTS  ↓\n\r");
     // port scan start
-    for i in min_port_num-1..max_port_num+1 {
+    thread_pool.push(thread::spawn(move || {
+        for i in min_port_num - 1..max_port_num + 1 {
         // actual addr, and port for scan
         let add: SocketAddr = SocketAddr::new(IpAddr::V4(target), i);
-        let t = thread::spawn(move ||{
             loop {
                 // MATCHING RESULTS FROM STREAM
                 match tcp_scan(*&add, timeout_dur) {
@@ -125,13 +129,12 @@ async fn main() -> std::io::Result<()>  {
                     PortStat::NoHost => panic!("Host Unreachable"),
                     _ => println!("No route to host")
                 };
-
                 break
             }
-        });
-        t.join().unwrap();
-    };
-
+    }}));
+    for kid in thread_pool {
+        let _ = kid.join().unwrap();
+    }
 
     // printing diffrence between end of scan and start in time in secs
     println!("\nJmSscan done: in {} seconds scanned {}", start.elapsed().as_secs(), w);
@@ -143,7 +146,6 @@ async fn main() -> std::io::Result<()>  {
             _ => c = 1 ,
         }
     };
-
     // after that program ends
     return Ok(())
 }
