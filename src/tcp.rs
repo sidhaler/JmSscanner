@@ -8,21 +8,19 @@ pub enum PortStat{
     Closed,
     Filtered,
     NoHost,
-    BrainDamage,
 }
 // This function response with enum PortStat
 pub fn tcp_scan(add:SocketAddr, dur: Duration) -> PortStat {
-    //
-    let mut scanresponse: PortStat = PortStat::BrainDamage;
+    // opening tcp stream on port and matching output
     match TcpStream::connect_timeout(&add, dur){
-        Ok(_stream) =>  scanresponse = PortStat::Open,
+        Ok(_stream) =>  return PortStat::Open,
         Err(e) => match e.kind() {
-            ErrorKind::TimedOut => scanresponse = PortStat::Filtered,
-            ErrorKind::ConnectionRefused  => scanresponse = PortStat::Closed,
-            ErrorKind::ConnectionReset => scanresponse =  PortStat::Filtered,
-            _ => scanresponse = PortStat::NoHost
+            ErrorKind::TimedOut => return PortStat::Filtered,
+            ErrorKind::ConnectionRefused  => return PortStat::Closed,
+            ErrorKind::ConnectionReset => return  PortStat::Filtered,
+            ErrorKind::AddrNotAvailable => return PortStat::NoHost,
+            _ => return PortStat::NoHost,
         },
     }
 
-    return scanresponse;
 }

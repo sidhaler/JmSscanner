@@ -8,8 +8,9 @@ use futures::executor::block_on;
 
 use many::tcp::{PortStat, tcp_scan};
 use many::services::match_service;
-use many::website_script::{website_script_check, WebServer };
-use std::thread::Thread;
+use many::website_script::{website_script_check, WebServer, website_get_body};
+
+
 
 #[derive(Debug, StructOpt)]
 #[structopt()]
@@ -34,7 +35,6 @@ use std::thread::Thread;
 ///
 /// jmsscanner 192.168.1.1 -p 1-1000                  it will check 1000 ports on host
 /// jmsscanner 192.168.1.1 -p 1-65535 -w              it will check for max port range, and look for websites up
-///
 struct Opt {
     // target to scan
     /// target to scan, if u want to scan network type network/mask
@@ -95,9 +95,13 @@ async fn main() -> std::io::Result<()>  {
         std::process::exit(05);
     }
     // no crackheads detected
+
     //parsing arguments
     let actddr: String = tar.parse().expect("Argument Error");
     let actddr12: String = actddr.clone();
+
+
+
     // HALO MANY STAN => WYKESZONY
     println!(
         "SCANNING => {} || On TCP protocol || From {} to {} ports \n\n\r\r"
@@ -135,17 +139,20 @@ async fn main() -> std::io::Result<()>  {
     for kid in thread_pool {
         let _ = kid.join().unwrap();
     }
-
     // printing diffrence between end of scan and start in time in secs
     println!("\nJmSscan done: in {} seconds scanned {}", start.elapsed().as_secs(), w);
 
     // website test script
     if website_scan_script == true {
-        match block_on(website_script_check(actddr12)) {
-            Ok(WebServer::Up) => println!("\nWEBSITE RUNNING ON THIS HOST !"),
-            _ => c = 1 ,
+        let jms21372323: String = actddr.clone();
+        match block_on(website_script_check(actddr12)){
+            Ok(WebServer::Up) => println!("\n\n{:?}", block_on(website_get_body(jms21372323))),
+            _ => println!("\n\nWebsite not found"),
         }
+
     };
+
+
     // after that program ends
     return Ok(())
 }
