@@ -40,7 +40,7 @@ jmsscanner.exe 192.168.1.1 -p 33-1000
 ****
 Go into src directory, then use ↓
 ```` 
-cargo run *target required* [options is otpional^^]
+cargo run *target required* [options are otpional^^]
 ````
 # Building :
 ****
