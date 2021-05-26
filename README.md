@@ -1,3 +1,5 @@
+[![Rust](https://github.com/sidhaler/JmSscanner/actions/workflows/rust.yml/badge.svg)](https://github.com/sidhaler/JmSscanner/actions/workflows/rust.yml)
+
 # About JmSscanner 
 ****
 JmSscanner is simple port scanner.
