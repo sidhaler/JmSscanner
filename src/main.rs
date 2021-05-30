@@ -9,7 +9,7 @@ use futures::executor::block_on;
 use many::tcp::{PortStat, tcp_scan};
 use many::services::match_service;
 use many::website_script::{website_script_check, WebServer, website_get_body};
-
+use many::check_for_host::check::{Addressstatus,sprawdzacz};
 
 
 #[derive(Debug, StructOpt)]
@@ -73,13 +73,6 @@ async fn main() -> std::io::Result<()>  {
     // port ranges
     let get_min = port_ranges[0].to_string();
     let get_max = port_ranges[1].to_string();
-    // remember to read instructions !
-    if get_max > "65535".to_string() || get_min > "65535".to_string() {
-        eprintln!("MAX VALUE IS 65535\n\
-        NAURA!...");
-        std::process::exit(01);
-    }
-    // if u are not retard
     let min_port_num: u16 = get_min.parse().expect("Argument Error");
     let  mut max_port_num: u16 = get_max.parse().expect("Argument Error");
     // XD
@@ -94,14 +87,16 @@ async fn main() -> std::io::Result<()>  {
         NAURA!...");
         std::process::exit(05);
     }
-    // no crackheads detected
-
+ 
     //parsing arguments
     let actddr: String = tar.parse().expect("Argument Error");
     let actddr12: String = actddr.clone();
 
-
-
+    match sprawdzacz(&actddr12) {
+        Addressstatus::Up => {},
+        Addressstatus::Down => panic!("Provided host doesn't exist")
+    }
+    //no crackheads detected
     // HALO MANY STAN => WYKESZONY
     println!(
         "SCANNING => {} || On TCP protocol || From {} to {} ports \n\n\r\r"

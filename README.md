@@ -1,8 +1,7 @@
-[![Rust](https://github.com/sidhaler/JmSscanner/actions/workflows/rust.yml/badge.svg)](https://github.com/sidhaler/JmSscanner/actions/workflows/rust.yml)
-
 # About JmSscanner 
+[![Rust](https://github.com/sidhaler/JmSscanner/actions/workflows/rust.yml/badge.svg)](https://github.com/sidhaler/JmSscanner/actions/workflows/rust.yml)
 ****
-JmSscanner is simple port scanner.
+JmSscanner is simple port scanner. After ver. 1.4, sudo privileges are required to run scanner.
 ### Options:
 ```
 -h || prints help
@@ -17,17 +16,17 @@ I don't know how scanner is doing on other distros.
 
 Usage:
 ```
-./jmsscanner [TARGET] [OPTIONS]
+sudo ./jmsscanner [TARGET] [OPTIONS]
 ```
 Examples:
 ```
-./jmsscanner 192.168.1.1 -p 33-1000
+sudo ./jmsscanner 192.168.1.1 -p 33-1000
 ```
 
 
 # Windows(it's retarded don't ever use this version) :
 ****
-##### Current version of doesn't compile on windows. 
+##### Current version of scanner doesn't compile on windows. 
 
 Experimental usage:
 ```` 
@@ -39,25 +38,24 @@ jmsscanner.exe 192.168.1.1 -p 33-1000
 ```
 
 # Compiling : 
-****
-Go into src directory, then use ↓
+
 ```` 
 cargo run *target required* [options are otpional^^]
 ````
 # Building :
-****
+
 #### For normal build go into src directory, then use ↓
 ```` 
 cargo build
 ````
-After that u will have release version ready in jmsrequest/target/debug
+After that u will have release version ready in jmsscanner/target/debug
 ****
 
 #### For building release version ↓
 ```` 
 cargo build --release 
 ````
-After that u will have release version ready in jmsrequest/target/release
+After that u will have release version ready in jmsscanner/target/release
 ****
 
 
@@ -65,4 +63,4 @@ After that u will have release version ready in jmsrequest/target/release
 ````
 cargo build --release --target x86_64-pc-windows-gnu
 ````
-After that u will have release version ready in jmsrequest/target/x86_64-pc-windows-gnu
+After that u will have release version ready in jmsscanner/target/x86_64-pc-windows-gnu
