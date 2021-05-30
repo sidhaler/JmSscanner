@@ -1,7 +1,7 @@
 # About JmSscanner 
 [![Rust](https://github.com/sidhaler/JmSscanner/actions/workflows/rust.yml/badge.svg)](https://github.com/sidhaler/JmSscanner/actions/workflows/rust.yml)
 ****
-JmSscanner is simple port scanner. After ver. 1.4, sudo privileges are required to run scanner.
+JmSscanner is simple port scanner. After ver. 1.5, sudo privileges are required to run scanner.
 ### Options:
 ```
 -h || prints help
