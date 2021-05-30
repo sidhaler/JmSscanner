@@ -1,20 +1,23 @@
 [package]
-name = "jmsrequest"
+name = "jmsscanner"
 version = "1.0.0"
 authors = ["sidhaler <seadhaler@gmail.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [[bin]]
-name = "jmsrequest"
+name = "jmsscanner"
 path = "src/main.rs"
 [lib]
 name = "many"
 path = "src/lib.rs"
+
 # for building windows .exe
 [toolchain.optional]
 rust-std = ["x86_64-pc-windows-gnu"]
+
 [dependencies]
+fastping-rs = "0.2"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 structopt = "0.3.13"
